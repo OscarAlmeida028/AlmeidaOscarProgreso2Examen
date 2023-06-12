@@ -48,7 +48,7 @@ public class Menu {
         return null;
     }
 
-    public Plato modificarPlato(String newNombrePlato, float newPrecio, float newCalorias, int newTiempoPreparacion, Plato plato) {
+    public Plato modificarPlato(Plato plato, float newPrecio, float newCalorias, int newTiempoPreparacion) {
         if (plato != null) {
             plato.setPrecio(newPrecio);
             plato.setCalorias(newCalorias);

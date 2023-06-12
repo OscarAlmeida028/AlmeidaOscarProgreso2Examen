@@ -79,7 +79,14 @@ public class mainForm extends JFrame {
         modificarModifButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menu.modificarPlato(text)
+                Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
+                float newPrecio = Float.valueOf(textoModifPrecio.getText());
+                float newCalorias = Float.valueOf(textoModifCalorias.getText());
+                int newTiempoPreparacion = Integer.parseInt(textoModifPreparacion.getText());
+                Plato platoModif = menu.modificarPlato(platoEcontrado, newPrecio, newCalorias, newTiempoPreparacion);
+
+                textAModif.setText(platoModif.toString());
+
             }
         });
         ButtonBuscarEliminar.addActionListener(new ActionListener() {
