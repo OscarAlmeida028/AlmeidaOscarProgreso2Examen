@@ -65,7 +65,10 @@ public class mainForm extends JFrame {
                 try {
                     Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
                     if (platoEcontrado != null) {
-                        textoModifPrecio.setText(platoEcontrado.getNombrePlato());
+                        textoModifPrecio.setEditable(true);
+                        textoModifCalorias.setEditable(true);
+                        textoModifPreparacion.setEditable(true);
+                        textoModifPrecio.setText(String.valueOf(platoEcontrado.getPrecio()));
                         textoModifCalorias.setText(String.valueOf(platoEcontrado.getCalorias()));
                         textoModifPreparacion.setText(String.valueOf(platoEcontrado.getTiempoPreparación()));
                     } else {
