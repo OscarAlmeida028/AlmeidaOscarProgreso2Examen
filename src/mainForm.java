@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class mainForm extends JFrame {
 
@@ -31,22 +32,54 @@ public class mainForm extends JFrame {
     private JTextField textBuscarPlatoOrden;
 
     public mainForm() {
+        Menu menu = new Menu();
 
         ingresarPlatoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    menu.agregarPlato(new Plato(textIngresoNombre.getText(), Integer.parseInt(textIngresoPrecio.getText()), Integer.parseInt(textIngresoCalorias.getText()), Integer.parseInt(textIngresoPreparacion.getText())));
+                    Plato plato = new Plato(textIngresoNombre.getText(), Integer.parseInt(textIngresoPrecio.getText()), Integer.parseInt(textIngresoCalorias.getText()), Integer.parseInt(textIngresoPreparacion.getText()));
+                    textAIngresoPlatos.setText(plato.toString());
+                }catch (Exception x){
+                    textAIngresoPlatos.setText("Faltan datos o mal ingresados");
+                }
             }
         });
         QuemarDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                    if(menu.platos.isEmpty()){
+                        ArrayList datosQuemados = menu.quemarDatos();
+                        textAIngresoPlatos.setText(String.valueOf(datosQuemados));
+                        QuemarDatosButton.setEnabled(false);
+                    }else {
+                        JOptionPane.showMessageDialog(null, "Ya ha ingresado datos no necesita datos quemados");
+                        QuemarDatosButton.setEnabled(false);
+                    }
             }
         });
         buscarModifButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    String platoModi = menu.buscarPlatoPorNombre(textoModifNombre.getText()
+                    if() != null){
+
+                        textoModifNombre.setText(textoModifNombre.getText());
+                        textoModifCalorias.setText(textoModifNombre.getText());
+                        textoModifPreparacion.setText(textoModifNombre.getText());
+
+
+                    }else
+
+
+
+                }catch (Exception x){
+                textAIngresoPlatos.setText("Faltan datos o mal ingresados");
+            }*/
+
+
 
             }
         });
