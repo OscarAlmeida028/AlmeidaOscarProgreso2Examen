@@ -87,6 +87,12 @@ public class mainForm extends JFrame {
                 float newCalorias = Float.valueOf(textoModifCalorias.getText());
                 int newTiempoPreparacion = Integer.parseInt(textoModifPreparacion.getText());
                 Plato platoModif = menu.modificarPlato(platoEcontrado, newPrecio, newCalorias, newTiempoPreparacion);
+                textoModifPrecio.setEditable(false);
+                textoModifCalorias.setEditable(false);
+                textoModifPreparacion.setEditable(false);
+                textoModifPrecio.setText("false");
+                textoModifCalorias.setText("false");
+                textoModifPreparacion.setText("false");
 
                 textAModif.setText(platoModif.toString());
 
