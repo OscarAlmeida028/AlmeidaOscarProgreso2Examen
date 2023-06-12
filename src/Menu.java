@@ -40,7 +40,6 @@ public class Menu {
     public Plato buscarPlatoPorNombre(String nombrePlato) {
         for (Plato plato : platos) {
             if (plato.getNombrePlato().equals(nombrePlato)) {
-                JOptionPane.showMessageDialog(null, "Se ha encontrado el plato");
                 return plato;
             }
         }

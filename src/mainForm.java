@@ -65,6 +65,7 @@ public class mainForm extends JFrame {
                 try {
                     Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
                     if (platoEcontrado != null) {
+                        JOptionPane.showMessageDialog(null, "Se ha encontrado el plato");
                         textoModifPrecio.setEditable(true);
                         textoModifCalorias.setEditable(true);
                         textoModifPreparacion.setEditable(true);
@@ -87,6 +88,7 @@ public class mainForm extends JFrame {
                 float newCalorias = Float.valueOf(textoModifCalorias.getText());
                 int newTiempoPreparacion = Integer.parseInt(textoModifPreparacion.getText());
                 Plato platoModif = menu.modificarPlato(platoEcontrado, newPrecio, newCalorias, newTiempoPreparacion);
+                JOptionPane.showMessageDialog(null, "Se ha modificado el plato");
                 textoModifPrecio.setEditable(false);
                 textoModifCalorias.setEditable(false);
                 textoModifPreparacion.setEditable(false);
