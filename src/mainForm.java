@@ -76,28 +76,31 @@ public class mainForm extends JFrame {
                         textAModif.setText("No se ha encontrado el plato");
                     }
                 } catch (Exception x) {
-                    textAIngresoPlatos.setText("Faltan datos o mal ingresados");
+                    textAModif.setText("Faltan datos o mal ingresados");
                 }
             }
         });
         modificarModifButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
-                float newPrecio = Float.valueOf(textoModifPrecio.getText());
-                float newCalorias = Float.valueOf(textoModifCalorias.getText());
-                int newTiempoPreparacion = Integer.parseInt(textoModifPreparacion.getText());
-                Plato platoModif = menu.modificarPlato(platoEcontrado, newPrecio, newCalorias, newTiempoPreparacion);
-                JOptionPane.showMessageDialog(null, "Se ha modificado el plato");
-                textoModifPrecio.setEditable(false);
-                textoModifCalorias.setEditable(false);
-                textoModifPreparacion.setEditable(false);
-                textoModifPrecio.setText("");
-                textoModifCalorias.setText("");
-                textoModifPreparacion.setText("");
+                try {
+                    Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
+                    float newPrecio = Float.valueOf(textoModifPrecio.getText());
+                    float newCalorias = Float.valueOf(textoModifCalorias.getText());
+                    int newTiempoPreparacion = Integer.parseInt(textoModifPreparacion.getText());
+                    Plato platoModif = menu.modificarPlato(platoEcontrado, newPrecio, newCalorias, newTiempoPreparacion);
+                    JOptionPane.showMessageDialog(null, "Se ha modificado el plato");
+                    textoModifPrecio.setEditable(false);
+                    textoModifCalorias.setEditable(false);
+                    textoModifPreparacion.setEditable(false);
+                    textoModifPrecio.setText("");
+                    textoModifCalorias.setText("");
+                    textoModifPreparacion.setText("");
 
-                textAModif.setText(platoModif.toString());
-
+                    textAModif.setText(platoModif.toString());
+                } catch (Exception x) {
+                    textAModif.setText("No se ha encontrado el plato");
+                }
             }
         });
         ButtonBuscarEliminar.addActionListener(new ActionListener() {
