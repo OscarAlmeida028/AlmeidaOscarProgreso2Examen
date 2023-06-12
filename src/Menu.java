@@ -57,6 +57,20 @@ public class Menu {
         return null;
     }
 
+    public String removerPlatoNombre(String platoNombre){
+        String platoRemovido ="";
+        Plato platoRemover = buscarPlatoPorNombre(platoNombre);
+        if(platoRemover != null){
+            platoRemovido = platoNombre.toString();
+            platos.remove(platoRemover);
+            JOptionPane.showMessageDialog(null, "El plato se ha eliminado con éxito");
+            return platoRemovido;
+        }
+        JOptionPane.showMessageDialog(null, "No se puedo eliminar el plato, ya que no existe");
+        return null;
+    }
+
+
 
 /*
     public Empleado buscarEmpleadoPorNombre(String nombreBuscado) {

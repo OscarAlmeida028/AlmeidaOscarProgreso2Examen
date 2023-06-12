@@ -106,13 +106,23 @@ public class mainForm extends JFrame {
         ButtonBuscarEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
+                    textAEliminar.setText(platoEcontrado.toString());
+                } catch (Exception x) {
+                    textAModif.setText("Faltan datos o mal ingresados");
+                }
             }
         });
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    String platoeliminado = menu.removerPlatoNombre(textoModifNombre.getText());
+                    textAEliminar.setText(platoeliminado);
+                }catch (Exception x) {
+                    textAModif.setText("Faltan datos o mal ingresados");
+                }
             }
         });
         mostrarButton.addActionListener(new ActionListener() {
