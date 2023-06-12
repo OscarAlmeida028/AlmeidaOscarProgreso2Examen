@@ -90,9 +90,9 @@ public class mainForm extends JFrame {
                 textoModifPrecio.setEditable(false);
                 textoModifCalorias.setEditable(false);
                 textoModifPreparacion.setEditable(false);
-                textoModifPrecio.setText("false");
-                textoModifCalorias.setText("false");
-                textoModifPreparacion.setText("false");
+                textoModifPrecio.setText("");
+                textoModifCalorias.setText("");
+                textoModifPreparacion.setText("");
 
                 textAModif.setText(platoModif.toString());
 
