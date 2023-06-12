@@ -37,16 +37,24 @@ public class Menu {
         return datosQuemados;
     }
 
-    public String buscarPlatoPorNombre(String nombrePlato) {
-        String platoEncontrado = "";
+    public Plato buscarPlatoPorNombre(String nombrePlato) {
         for (Plato plato : platos) {
             if (plato.getNombrePlato().equals(nombrePlato)) {
                 JOptionPane.showMessageDialog(null, "Se ha encontrado el plato");
-                platoEncontrado = plato.toString();
-                return platoEncontrado;
+                return plato;
             }
         }
         JOptionPane.showMessageDialog(null, "El plato no se ha encontrado");
+        return null;
+    }
+
+    public Plato modificarPlato(String newNombrePlato, float newPrecio, float newCalorias, int newTiempoPreparacion, Plato plato) {
+        if (plato != null) {
+            plato.setPrecio(newPrecio);
+            plato.setCalorias(newCalorias);
+            plato.setTiempoPreparación(newTiempoPreparacion);
+            return plato;
+        }
         return null;
     }
 

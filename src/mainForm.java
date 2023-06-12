@@ -63,30 +63,23 @@ public class mainForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String platoModi = menu.buscarPlatoPorNombre(textoModifNombre.getText()
-                    if() != null){
-
-                        textoModifNombre.setText(textoModifNombre.getText());
-                        textoModifCalorias.setText(textoModifNombre.getText());
-                        textoModifPreparacion.setText(textoModifNombre.getText());
-
-
-                    }else
-
-
-
-                }catch (Exception x){
-                textAIngresoPlatos.setText("Faltan datos o mal ingresados");
-            }*/
-
-
-
+                    Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
+                    if (platoEcontrado != null) {
+                        textoModifPrecio.setText(platoEcontrado.getNombrePlato());
+                        textoModifCalorias.setText(String.valueOf(platoEcontrado.getCalorias()));
+                        textoModifPreparacion.setText(String.valueOf(platoEcontrado.getTiempoPreparación()));
+                    } else {
+                        textAModif.setText("No se ha encontrado el plato");
+                    }
+                } catch (Exception x) {
+                    textAIngresoPlatos.setText("Faltan datos o mal ingresados");
+                }
             }
         });
         modificarModifButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                menu.modificarPlato(text)
             }
         });
         ButtonBuscarEliminar.addActionListener(new ActionListener() {
