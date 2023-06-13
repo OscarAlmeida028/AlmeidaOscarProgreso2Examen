@@ -29,9 +29,9 @@ public class menu {
     public ArrayList<Plato> quemarDatos(){
         ArrayList<Plato> datosQuemados = new ArrayList<>();
         Plato plato1 = new Plato("Plato1", 1, 1, 1);
-        Plato plato2 = new Plato("Plato2", 2, 2, 2);
+        Plato plato2 = new Plato("Plato2", 1, 2, 2);
         Plato plato3 = new Plato("Plato3", 3, 3, 3);
-        Plato plato4 = new Plato("Plato4", 4, 4, 4);
+        Plato plato4 = new Plato("Plato4", 6, 4, 4);
         Plato plato5 = new Plato("Plato5", 5, 5, 5);
 
         datosQuemados.add(plato1);

@@ -143,26 +143,26 @@ public class mainForm extends JFrame {
                     StringBuilder sb = new StringBuilder();
                     if (comboBoxOrder.getSelectedIndex() == 0) { //Nombre
                         Ordenamiento.ordenamientoBurbujaNombre(menu.getPlatos());
-                        for (Plato p: menu.getPlatos()) {
-                            sb.append(p.toString());
+                        for (Plato plato: menu.getPlatos()) {
+                            sb.append(plato.toString());
                         }
                         textAMostrar.setText(sb.toString());
                     } else if (comboBoxOrder.getSelectedIndex() == 1) {//Precio
                         Ordenamiento.ordenamientoBurbujaPrecio(menu.getPlatos());
-                        for (Plato p: menu.getPlatos()) {
-                            sb.append(p.toString());
+                        for (Plato plato: menu.getPlatos()) {
+                            sb.append(plato.toString());
                         }
                         textAMostrar.setText(sb.toString());
                     } else if (comboBoxOrder.getSelectedIndex() == 2) {//Calorías
                         Ordenamiento.ordenamientoIncersionCalorias(menu.getPlatos());
-                        for (Plato p: menu.getPlatos()) {
-                            sb.append(p.toString());
+                        for (Plato plato: menu.getPlatos()) {
+                            sb.append(plato.toString());
                         }
                         textAMostrar.setText(sb.toString());
                     } else {//Tiempo de preparación
                         Ordenamiento.ordenamientoIncesionTiempoPreparacion(menu.getPlatos());
-                        for (Plato p: menu.getPlatos()) {
-                            sb.append(p.toString());
+                        for (Plato plato: menu.getPlatos()) {
+                            sb.append(plato.toString());
                         }
                         textAMostrar.setText(sb.toString());
                     }
@@ -179,33 +179,33 @@ public class mainForm extends JFrame {
                     StringBuilder sb = new StringBuilder();
                     if (comboBoxOrder.getSelectedIndex() == 0) { //Nombre
                         Ordenamiento.ordenamientoBurbujaNombre(menu.getPlatos());
-                        int index = menu.buscarPorNombre(menu.getPlatos(), textBuscarPlatoOrden.getText());
-                        if (index != -1) {
-                            textAMostrar.setText(menu.getPlatos().get(index).toString());
+                        int indice = menu.buscarPorNombre(menu.getPlatos(), textBuscarPlatoOrden.getText());
+                        if (indice != -1) {
+
+                            textAMostrar.setText(menu.getPlatos().get(indice).toString());
                         }
                     } else if (comboBoxOrder.getSelectedIndex() == 1) {//Precio
                         Ordenamiento.ordenamientoBurbujaPrecio(menu.getPlatos());
-                        int index = menu.buscarPorPrecio(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
-                        if (index != -1) {
-                            textAMostrar.setText(menu.getPlatos().get(index).toString());
+                        int indice = menu.buscarPorPrecio(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
+                        if (indice != -1) {
+                            textAMostrar.setText(menu.getPlatos().get(indice).toString());
                         }
                     } else if (comboBoxOrder.getSelectedIndex() == 2) {//Calorias
                         Ordenamiento.ordenamientoIncersionCalorias(menu.getPlatos());
-                        int index = menu.buscarPorCalorias(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
-                        if (index != -1) {
-                            textAMostrar.setText(menu.getPlatos().get(index).toString());
+                        int indice = menu.buscarPorCalorias(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
+                        if (indice != -1) {
+                            textAMostrar.setText(menu.getPlatos().get(indice).toString());
                         }
                     } else { //Tiempo preparacion
                         Ordenamiento.ordenamientoIncesionTiempoPreparacion(menu.getPlatos());
-                        int index = menu.buscarPorTiempoPreparación(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
-                        if (index != -1) {
-                            textAMostrar.setText(menu.getPlatos().get(index).toString());
+                        int indice = menu.buscarPorTiempoPreparación(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
+                        if (indice != -1) {
+                            textAMostrar.setText(menu.getPlatos().get(indice).toString());
                         }
                     }
                 }catch (Exception x){
                     textAMostrar.setText("Faltan datos o mal ingresados");
                 }
-
             }
         });
     }
