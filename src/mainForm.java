@@ -141,26 +141,25 @@ public class mainForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     StringBuilder sb = new StringBuilder();
-                    //Debe imprimir todos los platos de forma ascendete
-                    if (comboBoxOrder.getSelectedIndex() == 0) { //Si es 0 es por nombre
+                    if (comboBoxOrder.getSelectedIndex() == 0) { //Nombre
                         Ordenamiento.ordenamientoBurbujaNombre(menu.getPlatos());
                         for (Plato p: menu.getPlatos()) {
                             sb.append(p.toString());
                         }
                         textAMostrar.setText(sb.toString());
-                    } else if (comboBoxOrder.getSelectedIndex() == 1) { //Es precio
+                    } else if (comboBoxOrder.getSelectedIndex() == 1) {//Precio
                         Ordenamiento.ordenamientoBurbujaPrecio(menu.getPlatos());
                         for (Plato p: menu.getPlatos()) {
                             sb.append(p.toString());
                         }
                         textAMostrar.setText(sb.toString());
-                    } else if (comboBoxOrder.getSelectedIndex() == 2) { //Calorias
+                    } else if (comboBoxOrder.getSelectedIndex() == 2) {//Calorías
                         Ordenamiento.ordenamientoIncersionCalorias(menu.getPlatos());
                         for (Plato p: menu.getPlatos()) {
                             sb.append(p.toString());
                         }
                         textAMostrar.setText(sb.toString());
-                    } else { //Tiempo de preparacion
+                    } else {//Tiempo de preparación
                         Ordenamiento.ordenamientoIncesionTiempoPreparacion(menu.getPlatos());
                         for (Plato p: menu.getPlatos()) {
                             sb.append(p.toString());
@@ -170,42 +169,33 @@ public class mainForm extends JFrame {
                 }catch (Exception x){
                     textAMostrar.setText("Faltan datos o mal ingresados");
                 }
-
             }
         });
 
-        mostrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    //Este boton es para buscar un plato específico tomando en cuenta su atributo
                     StringBuilder sb = new StringBuilder();
-                    //Debe imprimir todos los platos de forma ascendete
-                    if (comboBoxOrder.getSelectedIndex() == 0) { //Si es 0 es por nombre
+                    if (comboBoxOrder.getSelectedIndex() == 0) { //Nombre
                         Ordenamiento.ordenamientoBurbujaNombre(menu.getPlatos());
                         int index = menu.buscarPorNombre(menu.getPlatos(), textBuscarPlatoOrden.getText());
                         if (index != -1) {
                             textAMostrar.setText(menu.getPlatos().get(index).toString());
                         }
-                    } else if (comboBoxOrder.getSelectedIndex() == 1) { //Es precio
+                    } else if (comboBoxOrder.getSelectedIndex() == 1) {//Precio
                         Ordenamiento.ordenamientoBurbujaPrecio(menu.getPlatos());
                         int index = menu.buscarPorPrecio(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
                         if (index != -1) {
                             textAMostrar.setText(menu.getPlatos().get(index).toString());
                         }
-                    } else if (comboBoxOrder.getSelectedIndex() == 2) { //Calorias
+                    } else if (comboBoxOrder.getSelectedIndex() == 2) {//Calorias
                         Ordenamiento.ordenamientoIncersionCalorias(menu.getPlatos());
                         int index = menu.buscarPorCalorias(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
                         if (index != -1) {
                             textAMostrar.setText(menu.getPlatos().get(index).toString());
                         }
-                    } else { //Tiempo de preparacion
+                    } else { //Tiempo preparacion
                         Ordenamiento.ordenamientoIncesionTiempoPreparacion(menu.getPlatos());
                         int index = menu.buscarPorTiempoPreparación(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
                         if (index != -1) {
