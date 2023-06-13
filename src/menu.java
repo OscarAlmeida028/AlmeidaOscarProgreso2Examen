@@ -81,82 +81,82 @@ public class menu {
         return platos;
     }
 
-    public static int buscarPorNombre(List<Plato> platos, String nombre) {
-        int izquierda = 0;
-        int derecha = platos.size() - 1;
-        while (izquierda <= derecha) {
-            int medio = izquierda + (derecha - izquierda) / 2;
-            int comparacion = platos.get(medio).getNombrePlato().compareTo(nombre);
+    public Plato buscarPorNombre(List<Plato> platos, String nombre) {
+        int centro, primero, ultimo;
+        String nombreCentro;
+        primero = 0;
+        ultimo = platos.size() - 1;
+        while (primero <= ultimo) {
+            centro = (primero + ultimo) / 2;
+            nombreCentro = platos.get(centro).getNombrePlato();
+            int comparacion = nombre.compareTo(nombreCentro);
             if (comparacion == 0) {
-                return medio;
-            }
-            if (comparacion < 0) {
-                izquierda = medio + 1;
+                return platos.get(centro);
+            } else if (comparacion < 0) {
+                ultimo = centro - 1;
             } else {
-                derecha = medio - 1;
+                primero = centro + 1;
             }
         }
-        return -1;
+        return null;
     }
 
-    public static int buscarPorPrecio(List<Plato> platos, double precio) {
+    public Plato buscarPorPrecio(List<Plato> platos, double precio) {
         int centro, primero, ultimo;
         double valorCentro;
         primero = 0;
         ultimo = platos.size() - 1;
         while (primero <= ultimo) {
-            centro = (primero+ultimo)/2;
+            centro = (primero + ultimo) / 2;
             valorCentro = platos.get(centro).getPrecio();
-
             if (precio == valorCentro) {
-                return centro;
+                return platos.get(centro);
             } else if (precio < valorCentro) {
                 ultimo = centro - 1;
             } else {
                 primero = centro + 1;
             }
         }
-        return -1;
+        return null;
     }
 
-    public static int buscarPorCalorias(List<Plato> platos, double calorias) {
+    public Plato buscarPorCalorias(List<Plato> platos, double calorias) {
         int centro, primero, ultimo;
         double valorCentro;
         primero = 0;
         ultimo = platos.size() - 1;
         while (primero <= ultimo) {
-            centro = (primero+ultimo)/2;
+            centro = (primero + ultimo) / 2;
             valorCentro = platos.get(centro).getCalorias();
-
             if (calorias == valorCentro) {
-                return centro;
+
+                return platos.get(centro);
             } else if (calorias < valorCentro) {
                 ultimo = centro - 1;
             } else {
                 primero = centro + 1;
             }
         }
-        return -1;
+        return null;
     }
 
-    public static int buscarPorTiempoPreparación(List<Plato> platos, double tiempo) {
+    public Plato buscarPorTiempoPreparación(List<Plato> platos, double tiempo) {
         int centro, primero, ultimo;
         double valorCentro;
         primero = 0;
         ultimo = platos.size() - 1;
         while (primero <= ultimo) {
-            centro = (primero+ultimo)/2;
+            centro = (primero + ultimo) / 2;
             valorCentro = platos.get(centro).getTiempoPreparación();
-
             if (tiempo == valorCentro) {
-                return centro;
+                return platos.get(centro);
             } else if (tiempo < valorCentro) {
                 ultimo = centro - 1;
             } else {
                 primero = centro + 1;
             }
         }
-        return -1;
+        return null;
     }
 
 

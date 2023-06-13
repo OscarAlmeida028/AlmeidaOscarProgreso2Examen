@@ -43,7 +43,7 @@ public class mainForm extends JFrame {
                     menu.agregarPlato(new Plato(textIngresoNombre.getText(), Integer.parseInt(textIngresoPrecio.getText()), Integer.parseInt(textIngresoCalorias.getText()), Integer.parseInt(textIngresoPreparacion.getText())));
                     Plato plato = new Plato(textIngresoNombre.getText(), Integer.parseInt(textIngresoPrecio.getText()), Integer.parseInt(textIngresoCalorias.getText()), Integer.parseInt(textIngresoPreparacion.getText()));
                     textAIngresoPlatos.setText(plato.toString());
-                }catch (Exception x){
+                } catch (Exception x) {
                     textAIngresoPlatos.setText("Faltan datos o mal ingresados");
                 }
             }
@@ -53,7 +53,8 @@ public class mainForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     textAIngresoPlatos.setText(menu.quemarDatos().toString());
-                }catch (Exception x){
+                    QuemarDatosButton.setEnabled(false);
+                } catch (Exception x) {
                     textAIngresoPlatos.setText("Faltan datos o mal ingresados");
                 }
             }
@@ -87,7 +88,7 @@ public class mainForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
-                    if(platoEcontrado != null){
+                    if (platoEcontrado != null) {
                         float newPrecio = Float.valueOf(textoModifPrecio.getText());
                         float newCalorias = Float.valueOf(textoModifCalorias.getText());
                         int newTiempoPreparacion = Integer.parseInt(textoModifPreparacion.getText());
@@ -113,7 +114,7 @@ public class mainForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Plato platoEcontrado = menu.buscarPlatoPorNombre(textNombreEliminar.getText());
-                    if(platoEcontrado != null){
+                    if (platoEcontrado != null) {
                         eliminarButton.setEnabled(true);
                         mainForm.this.platoEliminar = platoEcontrado;
                         JOptionPane.showMessageDialog(null, "El plato se ha encontrado");
@@ -131,7 +132,7 @@ public class mainForm extends JFrame {
                     eliminarButton.setEnabled(false);
                     menu.removerPlatoNombre(platoEliminar);
                     textAEliminar.setText("No se ha encontrado el plato");
-                }catch (Exception x) {
+                } catch (Exception x) {
                     textAModif.setText("Faltan datos o mal ingresados");
                 }
             }
@@ -143,30 +144,30 @@ public class mainForm extends JFrame {
                     StringBuilder sb = new StringBuilder();
                     if (comboBoxOrder.getSelectedIndex() == 0) { //Nombre
                         Ordenamiento.ordenamientoBurbujaNombre(menu.getPlatos());
-                        for (Plato plato: menu.getPlatos()) {
+                        for (Plato plato : menu.getPlatos()) {
                             sb.append(plato.toString());
                         }
                         textAMostrar.setText(sb.toString());
                     } else if (comboBoxOrder.getSelectedIndex() == 1) {//Precio
                         Ordenamiento.ordenamientoBurbujaPrecio(menu.getPlatos());
-                        for (Plato plato: menu.getPlatos()) {
+                        for (Plato plato : menu.getPlatos()) {
                             sb.append(plato.toString());
                         }
                         textAMostrar.setText(sb.toString());
                     } else if (comboBoxOrder.getSelectedIndex() == 2) {//Calorías
                         Ordenamiento.ordenamientoIncersionCalorias(menu.getPlatos());
-                        for (Plato plato: menu.getPlatos()) {
+                        for (Plato plato : menu.getPlatos()) {
                             sb.append(plato.toString());
                         }
                         textAMostrar.setText(sb.toString());
                     } else {//Tiempo de preparación
                         Ordenamiento.ordenamientoIncesionTiempoPreparacion(menu.getPlatos());
-                        for (Plato plato: menu.getPlatos()) {
+                        for (Plato plato : menu.getPlatos()) {
                             sb.append(plato.toString());
                         }
                         textAMostrar.setText(sb.toString());
                     }
-                }catch (Exception x){
+                } catch (Exception x) {
                     textAMostrar.setText("Faltan datos o mal ingresados");
                 }
             }
@@ -177,38 +178,51 @@ public class mainForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     StringBuilder sb = new StringBuilder();
-                    if (comboBoxOrder.getSelectedIndex() == 0) { //Nombre
+                    boolean encontrado = false;
+                    if (comboBoxOrder.getSelectedIndex() == 0) { //Si es 0 es por nombre
                         Ordenamiento.ordenamientoBurbujaNombre(menu.getPlatos());
-                        int indice = menu.buscarPorNombre(menu.getPlatos(), textBuscarPlatoOrden.getText());
-                        if (indice != -1) {
-
-                            textAMostrar.setText(menu.getPlatos().get(indice).toString());
+                        Plato platoEncontrado = menu.buscarPorNombre(menu.getPlatos(), textBuscarPlatoOrden.getText());
+                        if (platoEncontrado != null) {
+                            textAMostrar.setText(platoEncontrado.toString());
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No hay resultados");
+                            textAMostrar.setText("No hay resultados");
                         }
-                    } else if (comboBoxOrder.getSelectedIndex() == 1) {//Precio
+                    } else if (comboBoxOrder.getSelectedIndex() == 1) { //Es precio
                         Ordenamiento.ordenamientoBurbujaPrecio(menu.getPlatos());
-                        int indice = menu.buscarPorPrecio(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
-                        if (indice != -1) {
-                            textAMostrar.setText(menu.getPlatos().get(indice).toString());
+                        Plato platoEncontrado = menu.buscarPorPrecio(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
+                        if (platoEncontrado != null) {
+                            textAMostrar.setText(platoEncontrado.toString());
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No hay resultados");
+                            textAMostrar.setText("No hay resultados");
                         }
-                    } else if (comboBoxOrder.getSelectedIndex() == 2) {//Calorias
+                    } else if (comboBoxOrder.getSelectedIndex() == 2) { //Calorias
                         Ordenamiento.ordenamientoIncersionCalorias(menu.getPlatos());
-                        int indice = menu.buscarPorCalorias(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
-                        if (indice != -1) {
-                            textAMostrar.setText(menu.getPlatos().get(indice).toString());
+                        Plato platoEncontrado = menu.buscarPorCalorias(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
+                        if (platoEncontrado != null) {
+                            textAMostrar.setText(platoEncontrado.toString());
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No hay resultados");
+                            textAMostrar.setText("No hay resultados");
                         }
-                    } else { //Tiempo preparacion
+                    } else { //Tiempo de preparacion
                         Ordenamiento.ordenamientoIncesionTiempoPreparacion(menu.getPlatos());
-                        int indice = menu.buscarPorTiempoPreparación(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
-                        if (indice != -1) {
-                            textAMostrar.setText(menu.getPlatos().get(indice).toString());
+                        Plato platoEncontrado = menu.buscarPorTiempoPreparación(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
+                        if (platoEncontrado != null) {
+                            textAMostrar.setText(platoEncontrado.toString());
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No hay resultados");
+                            textAMostrar.setText("No hay resultados");
                         }
                     }
-                }catch (Exception x){
-                    textAMostrar.setText("Faltan datos o mal ingresados");
+                    }catch(Exception x){
+                        textAMostrar.setText("Faltan datos o mal ingresados");
+                    }
                 }
-            }
         });
     }
+
 
     //Get mainPanel
     public JPanel getMainPanel() {
