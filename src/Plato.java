@@ -1,7 +1,7 @@
 public class Plato {
-    String nombrePlato;
-    float precio, calorias;
-    int tiempoPreparación;
+    private String nombrePlato;
+    private float precio, calorias;
+    private int tiempoPreparación;
 
     public Plato(String nombrePlato, float precio, float calorias, int tiempoPreparación) {
         this.nombrePlato = nombrePlato;
@@ -12,10 +12,6 @@ public class Plato {
 
     public String getNombrePlato() {
         return nombrePlato;
-    }
-
-    public void setNombrePlato(String nombrePlato) {
-        this.nombrePlato = nombrePlato;
     }
 
     public float getPrecio() {

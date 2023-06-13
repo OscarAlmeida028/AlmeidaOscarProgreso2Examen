@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class mainForm extends JFrame {
 
@@ -30,9 +29,12 @@ public class mainForm extends JFrame {
     private JTextArea textAMostrar;
     private JButton buscarButton;
     private JTextField textBuscarPlatoOrden;
+    private Plato platoEliminar;
 
     public mainForm() {
-        Menu menu = new Menu();
+        menu menu = new menu();
+        modificarModifButton.setEnabled(false);
+        eliminarButton.setEnabled(false);
 
         ingresarPlatoButton.addActionListener(new ActionListener() {
             @Override
@@ -49,14 +51,11 @@ public class mainForm extends JFrame {
         QuemarDatosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    if(menu.platos.isEmpty()){
-                        ArrayList datosQuemados = menu.quemarDatos();
-                        textAIngresoPlatos.setText(String.valueOf(datosQuemados));
-                        QuemarDatosButton.setEnabled(false);
-                    }else {
-                        JOptionPane.showMessageDialog(null, "Ya ha ingresado datos no necesita datos quemados");
-                        QuemarDatosButton.setEnabled(false);
-                    }
+                try {
+                    textAIngresoPlatos.setText(menu.quemarDatos().toString());
+                }catch (Exception x){
+                    textAIngresoPlatos.setText("Faltan datos o mal ingresados");
+                }
             }
         });
         buscarModifButton.addActionListener(new ActionListener() {
@@ -65,10 +64,13 @@ public class mainForm extends JFrame {
                 try {
                     Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
                     if (platoEcontrado != null) {
+                        modificarModifButton.setEnabled(true);
                         JOptionPane.showMessageDialog(null, "Se ha encontrado el plato");
+                        textoModifNombre.setEditable(false);
                         textoModifPrecio.setEditable(true);
                         textoModifCalorias.setEditable(true);
                         textoModifPreparacion.setEditable(true);
+
                         textoModifPrecio.setText(String.valueOf(platoEcontrado.getPrecio()));
                         textoModifCalorias.setText(String.valueOf(platoEcontrado.getCalorias()));
                         textoModifPreparacion.setText(String.valueOf(platoEcontrado.getTiempoPreparación()));
@@ -85,19 +87,22 @@ public class mainForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
-                    float newPrecio = Float.valueOf(textoModifPrecio.getText());
-                    float newCalorias = Float.valueOf(textoModifCalorias.getText());
-                    int newTiempoPreparacion = Integer.parseInt(textoModifPreparacion.getText());
-                    Plato platoModif = menu.modificarPlato(platoEcontrado, newPrecio, newCalorias, newTiempoPreparacion);
-                    JOptionPane.showMessageDialog(null, "Se ha modificado el plato");
-                    textoModifPrecio.setEditable(false);
-                    textoModifCalorias.setEditable(false);
-                    textoModifPreparacion.setEditable(false);
-                    textoModifPrecio.setText("");
-                    textoModifCalorias.setText("");
-                    textoModifPreparacion.setText("");
-
-                    textAModif.setText(platoModif.toString());
+                    if(platoEcontrado != null){
+                        float newPrecio = Float.valueOf(textoModifPrecio.getText());
+                        float newCalorias = Float.valueOf(textoModifCalorias.getText());
+                        int newTiempoPreparacion = Integer.parseInt(textoModifPreparacion.getText());
+                        Plato platoModif = menu.modificarPlato(platoEcontrado, newPrecio, newCalorias, newTiempoPreparacion);
+                        JOptionPane.showMessageDialog(null, "Se ha modificado el plato");
+                        textoModifNombre.setEditable(true);
+                        textoModifPrecio.setEditable(false);
+                        textoModifCalorias.setEditable(false);
+                        textoModifPreparacion.setEditable(false);
+                        textoModifPrecio.setText("");
+                        textoModifCalorias.setText("");
+                        textoModifPreparacion.setText("");
+                        textAModif.setText(platoModif.toString());
+                        modificarModifButton.setEnabled(false);
+                    }
                 } catch (Exception x) {
                     textAModif.setText("No se ha encontrado el plato");
                 }
@@ -107,8 +112,13 @@ public class mainForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Plato platoEcontrado = menu.buscarPlatoPorNombre(textoModifNombre.getText());
-                    textAEliminar.setText(platoEcontrado.toString());
+                    Plato platoEcontrado = menu.buscarPlatoPorNombre(textNombreEliminar.getText());
+                    if(platoEcontrado != null){
+                        eliminarButton.setEnabled(true);
+                        mainForm.this.platoEliminar = platoEcontrado;
+                        JOptionPane.showMessageDialog(null, "El plato se ha encontrado");
+                        textAEliminar.setText(platoEcontrado.toString());
+                    }
                 } catch (Exception x) {
                     textAModif.setText("Faltan datos o mal ingresados");
                 }
@@ -118,8 +128,9 @@ public class mainForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String platoeliminado = menu.removerPlatoNombre(textoModifNombre.getText());
-                    textAEliminar.setText(platoeliminado);
+                    eliminarButton.setEnabled(false);
+                    menu.removerPlatoNombre(platoEliminar);
+                    textAEliminar.setText("No se ha encontrado el plato");
                 }catch (Exception x) {
                     textAModif.setText("Faltan datos o mal ingresados");
                 }
@@ -128,6 +139,37 @@ public class mainForm extends JFrame {
         mostrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    StringBuilder sb = new StringBuilder();
+                    //Debe imprimir todos los platos de forma ascendete
+                    if (comboBoxOrder.getSelectedIndex() == 0) { //Si es 0 es por nombre
+                        Ordenamiento.ordenamientoBurbujaNombre(menu.getPlatos());
+                        for (Plato p: menu.getPlatos()) {
+                            sb.append(p.toString());
+                        }
+                        textAMostrar.setText(sb.toString());
+                    } else if (comboBoxOrder.getSelectedIndex() == 1) { //Es precio
+                        Ordenamiento.ordenamientoBurbujaPrecio(menu.getPlatos());
+                        for (Plato p: menu.getPlatos()) {
+                            sb.append(p.toString());
+                        }
+                        textAMostrar.setText(sb.toString());
+                    } else if (comboBoxOrder.getSelectedIndex() == 2) { //Calorias
+                        Ordenamiento.ordenamientoIncersionCalorias(menu.getPlatos());
+                        for (Plato p: menu.getPlatos()) {
+                            sb.append(p.toString());
+                        }
+                        textAMostrar.setText(sb.toString());
+                    } else { //Tiempo de preparacion
+                        Ordenamiento.ordenamientoIncesionTiempoPreparacion(menu.getPlatos());
+                        for (Plato p: menu.getPlatos()) {
+                            sb.append(p.toString());
+                        }
+                        textAMostrar.setText(sb.toString());
+                    }
+                }catch (Exception x){
+                    textAMostrar.setText("Faltan datos o mal ingresados");
+                }
 
             }
         });
@@ -141,6 +183,38 @@ public class mainForm extends JFrame {
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    //Este boton es para buscar un plato específico tomando en cuenta su atributo
+                    StringBuilder sb = new StringBuilder();
+                    //Debe imprimir todos los platos de forma ascendete
+                    if (comboBoxOrder.getSelectedIndex() == 0) { //Si es 0 es por nombre
+                        Ordenamiento.ordenamientoBurbujaNombre(menu.getPlatos());
+                        int index = menu.buscarPorNombre(menu.getPlatos(), textBuscarPlatoOrden.getText());
+                        if (index != -1) {
+                            textAMostrar.setText(menu.getPlatos().get(index).toString());
+                        }
+                    } else if (comboBoxOrder.getSelectedIndex() == 1) { //Es precio
+                        Ordenamiento.ordenamientoBurbujaPrecio(menu.getPlatos());
+                        int index = menu.buscarPorPrecio(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
+                        if (index != -1) {
+                            textAMostrar.setText(menu.getPlatos().get(index).toString());
+                        }
+                    } else if (comboBoxOrder.getSelectedIndex() == 2) { //Calorias
+                        Ordenamiento.ordenamientoIncersionCalorias(menu.getPlatos());
+                        int index = menu.buscarPorCalorias(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
+                        if (index != -1) {
+                            textAMostrar.setText(menu.getPlatos().get(index).toString());
+                        }
+                    } else { //Tiempo de preparacion
+                        Ordenamiento.ordenamientoIncesionTiempoPreparacion(menu.getPlatos());
+                        int index = menu.buscarPorTiempoPreparación(menu.getPlatos(), Double.parseDouble(textBuscarPlatoOrden.getText()));
+                        if (index != -1) {
+                            textAMostrar.setText(menu.getPlatos().get(index).toString());
+                        }
+                    }
+                }catch (Exception x){
+                    textAMostrar.setText("Faltan datos o mal ingresados");
+                }
 
             }
         });
